@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'timesplus',
     'bookings.apps.BookingsConfig',
     'timesdata.apps.TimesdataConfig',
     'django.contrib.admin',
@@ -85,6 +86,15 @@ DATABASES = {
 }
 
 
+# Django-Leaflet Configuration
+# Mapbox API Key
+MAPBOX_KEY = os.environ.get('MAPBOX_KEY')
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (35.6, 139.7),
+    'DEFAULT_ZOOM': 14,
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
@@ -121,4 +131,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
