@@ -92,6 +92,7 @@ MAPBOX_KEY = os.environ.get('MAPBOX_KEY')
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (35.6, 139.7),
     'DEFAULT_ZOOM': 14,
+    'TILES': 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + MAPBOX_KEY
 }
 
 
