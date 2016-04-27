@@ -1,13 +1,18 @@
-from django.db import models
+from django.contrib.gis.db import models
 
 
 class Station(models.Model):
     code = models.CharField(max_length=6, primary_key=True)
     closing = models.BooleanField(default=False)
-    lat = models.DecimalField(max_digits=9, decimal_places=6)
-    lon = models.DecimalField(max_digits=9, decimal_places=6)
+    point = models.PointField(
+        help_text="Represented as (longitude, latitude)",
+        null=True,
+        blank=True,
+    )
     name = models.CharField(max_length=100)
     new = models.BooleanField(default=False)
+
+    objects = models.GeoManager()
 
     def __str__(self):
         return '({}) {}'.format(self.code, self.name)

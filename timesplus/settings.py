@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'leaflet',
 ]
 
@@ -80,15 +81,19 @@ WSGI_APPLICATION = 'timesplus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'timesplus',
+        'USER': 'timesplus',
+        'PASSWORD': 'times12345',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
 
 # Django-Leaflet Configuration
 # Mapbox API Key
-MAPBOX_KEY = os.environ.get('MAPBOX_KEY')
+MAPBOX_KEY = os.environ.get('MAPBOX_KEY', '')
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (35.6, 139.7),
     'DEFAULT_ZOOM': 14,

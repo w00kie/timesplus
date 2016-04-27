@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.gis.geos import GEOSGeometry
 
 from timesdata.models import Station
 
@@ -31,7 +32,7 @@ class Command(BaseCommand):
 
         stations = r.json()['s']
         self.stdout.write(self.style.SUCCESS(
-            'Found {} stations from API'.format(stations.len())
+            'Found {} stations from API'.format(len(stations))
         ))
 
         count_created = 0
@@ -41,8 +42,10 @@ class Command(BaseCommand):
                 code=station['cd'],
                 defaults={
                     'closing': station['cl'],
-                    'lat': station['la'],
-                    'lon': station['lo'],
+                    'point': GEOSGeometry('POINT({lon} {lat})'.format(
+                        lon=station['lo'],
+                        lat=station['la'],
+                    )),
                     'name': station['nm'],
                     'new': station['op'],
                 }
