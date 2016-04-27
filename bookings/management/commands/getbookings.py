@@ -38,7 +38,7 @@ class Command(BaseCommand):
         bookings = csv.DictReader(r.text.splitlines())
         bookings_to_create = []
         for booking in bookings:
-            if booking['booking_id'] not in all_bookings:
+            if int(booking['booking_id']) not in all_bookings:
                 new_booking = Booking(
                     booking_id=booking['booking_id'],
                     car=booking['car'],
@@ -61,5 +61,5 @@ class Command(BaseCommand):
         Booking.objects.bulk_create(bookings_to_create)
 
         self.stdout.write(
-            self.style.SUCCESS('Successfully retrieved {} new bookings'.format(bookings_to_create.len()))
+            self.style.SUCCESS('Successfully retrieved {} new bookings'.format(len(bookings_to_create)))
         )
