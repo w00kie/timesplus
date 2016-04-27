@@ -12,7 +12,5 @@ class Station(models.Model):
     name = models.CharField(max_length=100)
     new = models.BooleanField(default=False)
 
-    objects = models.GeoManager()
-
     def __str__(self):
         return '({}) {}'.format(self.code, self.name)
