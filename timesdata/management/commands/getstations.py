@@ -42,10 +42,13 @@ class Command(BaseCommand):
                 code=station['cd'],
                 defaults={
                     'closing': station['cl'],
-                    'point': GEOSGeometry('POINT({lon} {lat})'.format(
-                        lon=station['lo'],
-                        lat=station['la'],
-                    )),
+                    'point': GEOSGeometry(
+                        'POINT({lon} {lat})'.format(
+                            lon=station['lo'],
+                            lat=station['la'],
+                        ),
+                        # Stupid ZENRIN data is still in Tokyo datum
+                        4301),
                     'name': station['nm'],
                     'new': station['op'],
                 }
