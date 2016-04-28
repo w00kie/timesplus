@@ -29,21 +29,25 @@ class Booking(models.Model):
 
     CAR_INFO = re.compile(r'(?P<model>.*) （(?P<plate>.*):(?P<color>.*)）')
 
-    def _get_car_model(self):
+    @property
+    def car_model(self):
         result = CAR_INFO.match(self.car)
         if result:
             return result.group('model')
         else:
             return 'Unknown'
-    car_model = property(_get_car_model)
 
-    def _get_car_plate(self):
+    @property
+    def car_plate(self):
         result = CAR_INFO.match(self.car)
         if result:
             return result.group('plate')
         else:
             return 'Unknown'
-    car_plate = property(_get_car_plate)
+
+    @property
+    def geom(self):
+        return self.station.point
 
     def __str__(self):
         return str(self.booking_id)
