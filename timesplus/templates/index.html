@@ -4,6 +4,7 @@
 {%  block head %}
     {% leaflet_js %}
     {% leaflet_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style>
       body {
         padding: 0;
@@ -23,6 +24,11 @@
 {% block script %}
     <script type="text/javascript">
         function mapInit(map, options) {
+          var layer = L.geoJson();
+          map.addLayer(layer);
+          $.getJSON("{% url 'booked-stations' %}", function (data) {
+            layer.addData(data);
+          });
         };
     </script>
 {% endblock %}
