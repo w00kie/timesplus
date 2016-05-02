@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&4^yfw4+5amkkxymzb4)p*g)t82o9b^xmed_t5#ht-q@tul&14'
+SECRET_KEY = os.environ.get('SECRET_KEY', '&4^yfw4+5amkkxymzb4)p*g)t82o9b^xmed_t5#ht-q@tul&14')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'timesplus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'timesplus',
-        'USER': 'timesplus',
-        'PASSWORD': 'times12345',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ.get('PG_DATABASE', 'timesplus'),
+        'USER': os.environ.get('PG_USER', 'timesplus'),
+        'PASSWORD': os.environ.get('PG_PASSWORD', 'times12345'),
+        'HOST': os.environ.get('PG_HOST', 'localhost'),
+        'PORT': os.environ.get('PG_PORT', ''),
     }
 }
 
