@@ -1,0 +1,6 @@
+Django
+psycopg2
+requests
+pytz
+django-leaflet
+django-geojson
