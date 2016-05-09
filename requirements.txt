@@ -5,6 +5,7 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 
+django-bootstrap3==7.0.1
 django-geojson==2.9.0
 django-leaflet==0.18.1
 Django==1.9.6             # via django-geojson, django-leaflet

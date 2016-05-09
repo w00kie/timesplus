@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 <html>
 <head>
-    <!-- <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"> -->
     <title>My Times Plus data</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     {% block head %}
     {% endblock %}
 </head>
 <body>
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
     {% block content %}
     {% endblock %}
     {% block script %}

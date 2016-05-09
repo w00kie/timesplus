@@ -4,3 +4,4 @@ requests
 pytz
 django-leaflet
 django-geojson
+django-bootstrap3
