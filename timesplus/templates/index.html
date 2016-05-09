@@ -28,6 +28,7 @@
           map.addLayer(layer);
           $.getJSON("{% url 'booked-stations' %}", function (data) {
             layer.addData(data);
+            map.fitBounds(layer.getBounds());
           });
         };
     </script>
