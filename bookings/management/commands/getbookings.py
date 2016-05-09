@@ -55,6 +55,7 @@ class Command(BaseCommand):
                     distance_charge=match(r'[\d,]+', booking['distance_charge'], '0').replace(',', ''),
                     penalty_charge=match(r'[\d,]+', booking['penalty_charge'], '0').replace(',', ''),
                     insurance_charge=match(r'[\d,]+', booking['insurance_charge'], '0').replace(',', ''),
+                    discount=match(r'[-\d,]+', booking['discount'], '0').replace(',', ''),
                     total_charge=match(r'[\d,]+', booking['total_charge'], '0').replace(',', ''),
                 )
                 bookings_to_create.append(new_booking)

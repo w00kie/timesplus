@@ -14,6 +14,7 @@ tokens = {
   "■ペナルティ金額": "penalty_charge",
   "■TCP安心補償サービス": "insurance_charge",
   "■合計金額": "total_charge",
+  "■プラスeチケット割引金額": "discount",
 }
 
 timesCarTrips = () ->

@@ -25,9 +25,14 @@ class Booking(models.Model):
     distance_charge = models.IntegerField('Driven distance charge')
     penalty_charge = models.IntegerField('Late return penalty charge')
     insurance_charge = models.IntegerField()
+    discount = models.IntegerField(help_text='Always a negative amount')
     total_charge = models.IntegerField()
 
     CAR_INFO = re.compile(r'(?P<model>.*) （(?P<plate>.*):(?P<color>.*)）')
+
+    @property
+    def total_paid(self):
+        return self.total_charge + self.discount
 
     @property
     def car_model(self):
