@@ -12,6 +12,7 @@ class Booking(models.Model):
         models.SET_NULL,
         blank=True,
         null=True,
+        related_name='bookings',
     )
     booking_start = models.DateTimeField('Booking start time')
     booking_end = models.DateTimeField('Booking end time')
