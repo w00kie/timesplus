@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load leaflet_tags %}
+
+{%  block head %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+{%  endblock %}
+
+{% block content %}
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Most used stations</h2>
+      </div>
+      <div class="col-md-4">
+        <div class="list-group">
+          {% for station in stations %}
+            <a href="#" class="list-group-item {% if forloop.first %} active {% endif %}">
+              <span class="badge">{{ station.nb_bookings }}</span>
+              {{ station.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-8">
+        {% leaflet_map "map" callback="mapInit" %}
+     </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        function mapInit(map, options) {
+          var layer = L.geoJson();
+          map.addLayer(layer);
+          $.getJSON("{% url 'booked-stations' %}", function (data) {
+            layer.addData(data);
+            map.fitBounds(layer.getBounds());
+          });
+        };
+    </script>
+{% endblock %}
