@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load leaflet_tags %}
+{% load geojson_tags %}
 
 {%  block head %}
     {% leaflet_js %}
     {% leaflet_css %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 {%  endblock %}
 
 {% block content %}
@@ -16,8 +16,8 @@
       </div>
       <div class="col-md-4">
         <div class="list-group">
-          {% for station in stations %}
-            <a href="#" class="list-group-item {% if forloop.first %} active {% endif %}">
+          {% for station in stations|slice:":7" %}
+            <a href="#" class="stations list-group-item {% if forloop.first %} active {% endif %}" id="{{ station.code }}">
               <span class="badge">{{ station.nb_bookings }}</span>
               {{ station.name }}
             </a>
@@ -26,19 +26,23 @@
       </div>
       <div class="col-md-8">
         {% leaflet_map "map" callback="mapInit" %}
-     </div>
+      </div>
     </div>
+  </div>
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript">
         function mapInit(map, options) {
-          var layer = L.geoJson();
-          map.addLayer(layer);
-          $.getJSON("{% url 'booked-stations' %}", function (data) {
-            layer.addData(data);
-            map.fitBounds(layer.getBounds());
-          });
+          var layer = L.geoJson({{ stations|geojsonfeature:":point"|safe }}, {
+            onEachFeature: function (feature, layer) {
+              $("#" + feature.id).click(function () {
+                $(".stations").removeClass("active");
+                $(this).addClass("active");
+                map.setView(layer.getLatLng(), 16);
+              });
+            }
+          }).addTo(map);
         };
     </script>
 {% endblock %}
